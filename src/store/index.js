@@ -8,7 +8,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    page: 0,
+    page: 1,
     responseSize: 10,
     searchString: "",
     cachePackeges: {},
@@ -19,8 +19,8 @@ export default new Vuex.Store({
     },
     SET_TO_CACHE: (state, payload) => {
       const page = state.page;
-      console.log(payload)
-      state.cachePackeges[page] = payload;
+      Vue.set(state.cachePackeges, page, payload);
+      // state.cachePackeges[page] = payload;
     },
   },
   actions: {

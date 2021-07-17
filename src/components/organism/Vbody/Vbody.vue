@@ -1,28 +1,48 @@
 <template>
   <v-main>
-    <v-data-table :headers="columns"></v-data-table>
+    <v-data-table
+      :headers="columns"
+      :items="tableData"
+      hide-default-footer
+    ></v-data-table>
+    <v-pagination
+      v-if="pageCount"
+      v-model="page"
+      :length="pageCount"
+      :total-visible="6"
+    ></v-pagination>
   </v-main>
 </template>
 
 <script>
+import columns from "./columns";
+
 export default {
   name: "Vbody",
   data() {
     return {
-      columns: [
-        {
-          text: "Name",
-          align: "start",
-          filterable: false,
-          value: "name",
-        },
-        { text: "Calories", value: "calories" },
-        { text: "Fat (g)", value: "fat" },
-        { text: "Carbs (g)", value: "carbs" },
-        { text: "Protein (g)", value: "protein" },
-        { text: "Iron (%)", value: "iron" },
-      ],
+      columns,
     };
+  },
+  computed: {
+    page() {
+      return this.$store.state.page;
+    },
+    pageData() {
+      const { page } = this;
+      return this.$store.state.cachePackeges[page];
+    },
+    pageCount() {
+      const { pageData, tableData } = this;
+      if (!pageData) return 0;
+      return Math.ceil(pageData.total / tableData.length);
+    },
+    tableData() {
+      const { pageData } = this;
+      console.log(pageData)
+      if (!pageData) return [];
+      return pageData.results;
+    },
   },
 };
 </script>
