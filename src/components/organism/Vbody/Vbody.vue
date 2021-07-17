@@ -13,7 +13,11 @@
       :total-visible="6"
       @input="changePage"
     ></v-pagination>
-    <Modal></Modal>
+    <Modal
+      :showModal="isShowModal"
+      :data="dataForModal"
+      @close="closeModal"
+    ></Modal>
   </v-main>
 </template>
 
@@ -28,6 +32,8 @@ export default {
     return {
       columns,
       currPage: 1,
+      dataForModal: {},
+      isShowModal: false,
     };
   },
   computed: {
@@ -62,7 +68,14 @@ export default {
       this.$store.dispatch("GET_DATA_NEW_PAGE", page);
     },
     showModal(e) {
-      console.log(e);
+      this.dataForModal = e;
+      this.openModal();
+    },
+    openModal() {
+      this.isShowModal = true;
+    },
+    closeModal() {
+      this.isShowModal = false;
     },
   },
 };

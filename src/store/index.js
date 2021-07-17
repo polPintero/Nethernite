@@ -38,8 +38,11 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    SEND_RESPONSE_SEARCH: async ({ state }, searchStr) => {
+    SEND_RESPONSE_SEARCH: async ({ state, commit }, searchStr) => {
       const search = searchStr === undefined ? state.searchString : searchStr;
+      if (search !== state.searchString) {
+        commit("CLEAR_CACHE");
+      }
       const response = await api.getSearch(
         search,
         state.page * state.responseSize
