@@ -1,11 +1,12 @@
 <template>
-  <v-app-bar app height="90">
+  <v-app-bar app class="header">
     <v-text-field
       solo
-      label="Append"
-      append-icon="mdi-map-marker"
+      label="Search"
+      prepend-inner-icon="mdi-file-document-box-search-outline"
       dense
       clearable
+      hide-details
     ></v-text-field>
   </v-app-bar>
 </template>
@@ -15,5 +16,14 @@ export default {
   name: "Vheader",
 };
 </script>
-
-<style lang="sass" scoped></style>
+<style lang="scss">
+.header {
+  .v-toolbar__content {
+    justify-content: flex-end;
+  }
+  .v-input {
+    flex-grow: unset;
+    width: 350px;
+  }
+}
+</style>
