@@ -28,6 +28,7 @@ export default new Vuex.Store({
     },
     CLEAR_CACHE: (state) => {
       state.cachePackeges = {};
+      state.page = 1;
     },
     SET_TABLE_DATA: (state, payload) => {
       state.tableData = payload;

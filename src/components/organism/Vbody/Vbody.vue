@@ -52,6 +52,11 @@ export default {
       return this.$store.state.isLoading;
     },
   },
+  watch: {
+    page(e) {
+      this.currPage = e;
+    },
+  },
   methods: {
     changePage(page) {
       this.$store.dispatch("GET_DATA_NEW_PAGE", page);
