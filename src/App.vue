@@ -1,20 +1,21 @@
 <template>
-  <v-app id="app">
-    <v-app-bar color="blue" dense :height="50">
+  <v-app>
+    <Vheader></Vheader>
+    <v-main>
+      <!-- <v-container fluid> </v-container> -->
+    </v-main>
 
-    </v-app-bar>
-    <v-main color="blue"> </v-main>
-    <v-footer color="red"> </v-footer>
+    <v-footer app> </v-footer>
   </v-app>
 </template>
 
 <script>
+import Vheader from "./components/organism/Vheader";
+
 export default {
   name: "App",
+  components: { Vheader },
 };
 </script>
 
-<style lang="scss">
-#app {
-}
-</style>
+<style lang="scss"></style>
