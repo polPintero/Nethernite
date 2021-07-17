@@ -10,7 +10,9 @@
       <v-card-text v-if="pack.author">
         Author: {{ pack.author.name }}
       </v-card-text>
-
+      <v-card-text>
+        <SocialLinks :links="pack.links"></SocialLinks>
+      </v-card-text>
       <v-card-actions>
         <v-btn @click="closeModal">Close </v-btn>
       </v-card-actions>
@@ -19,8 +21,10 @@
 </template>
 
 <script>
+import SocialLinks from "../../atoms/SocialLinks";
 export default {
   name: "Modal",
+  components: { SocialLinks },
   props: {
     data: { type: Object, require: true },
     showModal: { type: Boolean, require: true, default: false },
@@ -63,6 +67,9 @@ export default {
   .v-overlay__content {
     max-width: 600px;
     width: 90%;
+  }
+  .v-card__actions {
+    justify-content: flex-end;
   }
 }
 </style>
