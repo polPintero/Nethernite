@@ -10,7 +10,6 @@
       @keydown.enter="getSearch"
       @click:clear="clearSearchStr"
       :loading="dataLoading"
-      value="template func"
     ></v-text-field>
   </v-app-bar>
 </template>

@@ -10,7 +10,7 @@ export default new Vuex.Store({
   state: {
     page: 1,
     responseSize: 10,
-    searchString: "template func",
+    searchString: "",
     cachePackeges: {},
     tableData: [],
     isLoading: false,

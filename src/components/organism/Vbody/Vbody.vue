@@ -1,9 +1,10 @@
 <template>
-  <v-main>
+  <v-main class="v-body">
     <v-data-table
       :headers="columns"
       :items="tableData"
       hide-default-footer
+      @click:row="showModal"
     ></v-data-table>
     <v-pagination
       v-if="pageCount"
@@ -12,14 +13,17 @@
       :total-visible="6"
       @input="changePage"
     ></v-pagination>
+    <Modal></Modal>
   </v-main>
 </template>
 
 <script>
+import Modal from "../../moleculs/Modal";
 import columns from "./columns";
 
 export default {
   name: "Vbody",
+  components: { Modal },
   data() {
     return {
       columns,
@@ -48,13 +52,23 @@ export default {
       return this.$store.state.isLoading;
     },
   },
-  watch: {},
   methods: {
     changePage(page) {
       this.$store.dispatch("GET_DATA_NEW_PAGE", page);
+    },
+    showModal(e) {
+      console.log(e);
     },
   },
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.v-body {
+  .v-data-table__wrapper {
+    tbody {
+      cursor: pointer;
+    }
+  }
+}
+</style>
