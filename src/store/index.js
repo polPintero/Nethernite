@@ -7,14 +7,33 @@ const api = new API();
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {},
-  mutations: {},
+  state: {
+    page: 0,
+    responseSize: 10,
+    searchString: "",
+    cachePackeges: {},
+  },
+  mutations: {
+    SET_SEARCH_STRING: (state, str) => {
+      state.searchString = str;
+    },
+    SET_TO_CACHE: (state, payload) => {
+      const page = state.page;
+      state.cachePackeges[page] = payload;
+    },
+  },
   actions: {
-    GET_DATA_SEARCH: async ({ state }, searchString) => {
-      const z = await api.getSearch(searchString);
-      console.log(state);
-      // console.log(z);
-      return true
+    GET_DATA_SEARCH: async ({ state, commit }, searchString) => {
+      const search =
+        searchString === undefined ? state.searchString : searchString;
+      const response = await api.getSearch(
+        search,
+        state.page * state.responseSize
+      );
+      if (response.status) {
+        commit("SET_TO_CACHE", response.data);
+      }
+      return true;
     },
   },
 });

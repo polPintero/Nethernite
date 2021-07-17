@@ -8,6 +8,7 @@
       clearable
       hide-details
       @keydown.enter="getSearch"
+      :loading="dataLoading"
     ></v-text-field>
   </v-app-bar>
 </template>
@@ -15,12 +16,20 @@
 <script>
 export default {
   name: "Vheader",
+  data() {
+    return {
+      dataLoading: false
+    }
+  },
   methods: {
     async getSearch(e) {
+      if (this.dataLoading) return;
       const searchString = e.target.value;
-      console.log(searchString)
-      const z = await this.$store.dispatch('GET_DATA_SEARCH', searchString);
-      // console.log(z);
+      this.$store.commit('SET_SEARCH_STRING', searchString);
+      if (!searchString) return;
+      this.dataLoading = true;
+      await this.$store.dispatch('GET_DATA_SEARCH');
+      this.dataLoading = false
     },
   },
 };

@@ -15,15 +15,17 @@ class API {
     });
   }
 
-  async getSearch(searchString) {
+  async getSearch(searchString, offset = 0, size = 10) {
     const query = {
       q: searchString,
+      size,
+      from: offset,
     };
     let url = new window.URLSearchParams(query);
-    url = this.url + "?" + url.toString();
+    url = this.url + "search?" + url.toString();
     const response = await this.getData({ url });
     const result = {
-      status: response.status >= 200 && response.status < 300,
+      status: this.getResponseStatus(response),
     };
     try {
       const data = JSON.parse(response.responseText);
@@ -33,6 +35,10 @@ class API {
     } finally {
       return result;
     }
+  }
+  
+  getResponseStatus(response) {
+    return response.status >= 200 && response.status < 300;
   }
 }
 
