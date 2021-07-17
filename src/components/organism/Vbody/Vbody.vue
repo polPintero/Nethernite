@@ -7,9 +7,10 @@
     ></v-data-table>
     <v-pagination
       v-if="pageCount"
-      v-model="page"
+      v-model="currPage"
       :length="pageCount"
       :total-visible="6"
+      @input="changePage"
     ></v-pagination>
   </v-main>
 </template>
@@ -22,6 +23,7 @@ export default {
   data() {
     return {
       columns,
+      currPage: 1,
     };
   },
   computed: {
@@ -35,13 +37,21 @@ export default {
     pageCount() {
       const { pageData, tableData } = this;
       if (!pageData) return 0;
-      return Math.ceil(pageData.total / tableData.length);
+      return Math.floor(pageData.total / this.$store.state.responseSize);
     },
     tableData() {
       const { pageData } = this;
-      console.log(pageData)
       if (!pageData) return [];
       return pageData.results;
+    },
+    isLoading() {
+      return this.$store.state.isLoading;
+    },
+  },
+  watch: {},
+  methods: {
+    changePage(page) {
+      this.$store.dispatch("GET_DATA_NEW_PAGE", page);
     },
   },
 };

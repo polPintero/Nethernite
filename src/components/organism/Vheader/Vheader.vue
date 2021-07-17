@@ -8,7 +8,9 @@
       clearable
       hide-details
       @keydown.enter="getSearch"
+      @click:clear="clearSearchStr"
       :loading="dataLoading"
+      value="template func"
     ></v-text-field>
   </v-app-bar>
 </template>
@@ -21,15 +23,27 @@ export default {
       dataLoading: false,
     };
   },
+  computed: {
+    curSearch() {
+      return this.$store.state.searchString;
+    },
+  },
   methods: {
     async getSearch(e) {
-      if (this.dataLoading) return;
       const searchString = e.target.value;
-      this.$store.commit("SET_SEARCH_STRING", searchString);
-      if (!searchString) return;
+      if (this.dataLoading || this.curSearch === searchString) return;
+      if (!searchString) {
+        this.clearSearchStr();
+        return;
+      }
       this.dataLoading = true;
+      this.$store.commit("SET_SEARCH_STRING", searchString);
       await this.$store.dispatch("GET_DATA_SEARCH");
       this.dataLoading = false;
+    },
+    clearSearchStr() {
+      this.$store.commit("SET_SEARCH_STRING", "");
+      this.$store.commit("CLEAR_CACHE");
     },
   },
 };
