@@ -36,6 +36,7 @@ export default {
         return;
       }
       this.dataLoading = true;
+      this.$store.commit("CLEAR_CACHE");
       this.$store.commit("SET_SEARCH_STRING", searchString);
       await this.$store.dispatch("GET_DATA_SEARCH");
       this.dataLoading = false;

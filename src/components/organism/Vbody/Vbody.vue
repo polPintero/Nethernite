@@ -47,7 +47,9 @@ export default {
     pageCount() {
       const { pageData, tableData } = this;
       if (!pageData) return 0;
-      return Math.floor(pageData.total / this.$store.state.responseSize);
+      const count = Math.floor(pageData.total / this.$store.state.responseSize);
+      // max page size https://api-docs.npms.io/
+      return count < 1000 ? count : 999;
     },
     tableData() {
       const { pageData } = this;

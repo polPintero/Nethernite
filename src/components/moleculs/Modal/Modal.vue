@@ -41,7 +41,6 @@ export default {
     data: {
       deep: true,
       handler(e) {
-        console.log(e);
         this.pack = e.package;
       },
     },
