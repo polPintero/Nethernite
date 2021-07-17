@@ -7,6 +7,7 @@
       dense
       clearable
       hide-details
+      @keydown.enter="getSearch"
     ></v-text-field>
   </v-app-bar>
 </template>
@@ -14,6 +15,14 @@
 <script>
 export default {
   name: "Vheader",
+  methods: {
+    async getSearch(e) {
+      const searchString = e.target.value;
+      console.log(searchString)
+      const z = await this.$store.dispatch('GET_DATA_SEARCH', searchString);
+      // console.log(z);
+    },
+  },
 };
 </script>
 <style lang="scss">

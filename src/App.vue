@@ -17,5 +17,3 @@ export default {
   components: { Vheader },
 };
 </script>
-
-<style lang="scss"></style>
