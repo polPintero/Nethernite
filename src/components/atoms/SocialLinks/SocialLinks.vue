@@ -8,7 +8,7 @@
       :title="key"
       :key="key"
     >
-      <v-icon>{{ getIcon(key) }}</v-icon>
+      <v-icon size="32px">{{ getIcon(key) }}</v-icon>
     </a>
   </div>
 </template>
