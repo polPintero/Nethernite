@@ -1,9 +1,7 @@
 <template>
   <v-app>
     <Vheader></Vheader>
-    <v-main>
-      <!-- <v-container fluid> </v-container> -->
-    </v-main>
+    <Vbody></Vbody>
 
     <v-footer app> </v-footer>
   </v-app>
@@ -11,9 +9,10 @@
 
 <script>
 import Vheader from "./components/organism/Vheader";
+import Vbody from "./components/organism/Vbody";
 
 export default {
   name: "App",
-  components: { Vheader },
+  components: { Vheader, Vbody },
 };
 </script>

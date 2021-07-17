@@ -18,18 +18,18 @@ export default {
   name: "Vheader",
   data() {
     return {
-      dataLoading: false
-    }
+      dataLoading: false,
+    };
   },
   methods: {
     async getSearch(e) {
       if (this.dataLoading) return;
       const searchString = e.target.value;
-      this.$store.commit('SET_SEARCH_STRING', searchString);
+      this.$store.commit("SET_SEARCH_STRING", searchString);
       if (!searchString) return;
       this.dataLoading = true;
-      await this.$store.dispatch('GET_DATA_SEARCH');
-      this.dataLoading = false
+      await this.$store.dispatch("GET_DATA_SEARCH");
+      this.dataLoading = false;
     },
   },
 };

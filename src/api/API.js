@@ -36,7 +36,7 @@ class API {
       return result;
     }
   }
-  
+
   getResponseStatus(response) {
     return response.status >= 200 && response.status < 300;
   }

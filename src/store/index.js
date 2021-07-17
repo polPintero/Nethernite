@@ -19,6 +19,7 @@ export default new Vuex.Store({
     },
     SET_TO_CACHE: (state, payload) => {
       const page = state.page;
+      console.log(payload)
       state.cachePackeges[page] = payload;
     },
   },
