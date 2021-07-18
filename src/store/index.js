@@ -12,7 +12,7 @@ export default new Vuex.Store({
     responseSize: 10,
     searchString: "",
     cachePackeges: {},
-    tableData: [],
+    tableData: {},
     isLoading: false,
   },
   mutations: {
@@ -28,7 +28,6 @@ export default new Vuex.Store({
     },
     CLEAR_CACHE: (state) => {
       state.cachePackeges = {};
-      state.page = 1;
     },
     SET_TABLE_DATA: (state, payload) => {
       state.tableData = payload;
@@ -38,20 +37,24 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    SEND_RESPONSE_SEARCH: async ({ state, commit }, searchStr) => {
+    SEND_RESPONSE_SEARCH: async ({ state, dispatch }, { searchStr }) => {
       const search = searchStr === undefined ? state.searchString : searchStr;
       if (search !== state.searchString) {
-        commit("CLEAR_CACHE");
+        dispatch("CLEAR_DATA");
       }
       const from = (state.page - 1) * state.responseSize;
       const response = await api.getSearch(search, from);
       return response;
     },
-    GET_DATA_SEARCH: async ({ state, commit, dispatch }, searchStr) => {
+    GET_DATA_SEARCH: async ({ state, commit, dispatch }) => {
       const { page, cachePackeges } = state;
-      if (cachePackeges[page] !== undefined) return true;
-      const response = await dispatch("SEND_RESPONSE_SEARCH", searchStr);
+      if (cachePackeges[page] !== undefined) {
+        commit("SET_TABLE_DATA", cachePackeges[page]);
+        return true;
+      }
+      const response = await dispatch("SEND_RESPONSE_SEARCH", {});
       if (response.status) {
+        commit("SET_TABLE_DATA", response.data);
         commit("SET_TO_CACHE", response.data);
       }
       return true;
@@ -59,6 +62,11 @@ export default new Vuex.Store({
     GET_DATA_NEW_PAGE: ({ commit, dispatch }, pageNumber) => {
       commit("SET_NEW_PAGE", pageNumber);
       dispatch("GET_DATA_SEARCH");
+    },
+    CLEAR_DATA: ({ commit }) => {
+      commit("CLEAR_CACHE");
+      commit("SET_TABLE_DATA", {});
+      commit("SET_NEW_PAGE", 1);
     },
   },
 });

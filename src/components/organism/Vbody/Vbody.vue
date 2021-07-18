@@ -40,21 +40,17 @@ export default {
     page() {
       return this.$store.state.page;
     },
-    pageData() {
-      const { page } = this;
-      return this.$store.state.cachePackeges[page];
-    },
     pageCount() {
-      const { pageData, tableData } = this;
-      if (!pageData) return 0;
-      const count = Math.floor(pageData.total / this.$store.state.responseSize);
+      const { tableData } = this;
+      if (!tableData) return 0;
+      const count = Math.floor(
+        tableData.total / this.$store.state.responseSize
+      );
       // max page size https://api-docs.npms.io/
       return count < 1000 ? count : 999;
     },
     tableData() {
-      const { pageData } = this;
-      if (!pageData) return [];
-      return pageData.results;
+      return this.$store.state.tableData.results;
     },
     isLoading() {
       return this.$store.state.isLoading;

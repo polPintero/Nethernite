@@ -36,14 +36,14 @@ export default {
         return;
       }
       this.dataLoading = true;
-      this.$store.commit("CLEAR_CACHE");
+      this.$store.dispatch("CLEAR_DATA");
       this.$store.commit("SET_SEARCH_STRING", searchString);
       await this.$store.dispatch("GET_DATA_SEARCH");
       this.dataLoading = false;
     },
     clearSearchStr() {
       this.$store.commit("SET_SEARCH_STRING", "");
-      this.$store.commit("CLEAR_CACHE");
+      this.$store.dispatch("CLEAR_DATA");
     },
   },
 };
