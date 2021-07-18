@@ -51,7 +51,7 @@ export default {
 <style lang="scss">
 .header {
   .v-toolbar__content {
-    justify-content: flex-end;
+    justify-content: center;
   }
   .v-input {
     flex-grow: unset;

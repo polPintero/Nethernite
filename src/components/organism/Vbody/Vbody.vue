@@ -86,5 +86,9 @@ export default {
       cursor: pointer;
     }
   }
+  .v-data-table {
+    margin: 0 auto;
+    max-width: 1900px;
+  }
 }
 </style>
