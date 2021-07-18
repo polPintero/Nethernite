@@ -66,6 +66,8 @@ export default {
       this.$store.dispatch("GET_DATA_NEW_PAGE", page);
     },
     showModal(e) {
+      const selection = window.getSelection().toString();
+      if (selection.length > 0) return;
       this.dataForModal = e;
       this.openModal();
     },
