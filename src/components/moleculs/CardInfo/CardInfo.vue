@@ -1,30 +1,40 @@
 <template>
-  <v-overlay :value="showModal" class="v-modal">
+  <Modal :showModal="showModal" @close="closeModal" class="card-info">
     <v-card color="#385F73" dark>
-      <v-card-title class="text-h5"
-        >{{ pack.name }} <v-spacer></v-spacer>v.{{ pack.version }}</v-card-title
-      >
+      <v-card-title class="text-h5">
+        {{ pack.name }}
+
+        <v-spacer></v-spacer>
+
+        v.{{ pack.version }}
+      </v-card-title>
+
       <v-divider></v-divider>
 
       <v-card-subtitle>{{ pack.description }}</v-card-subtitle>
+
       <v-card-text v-if="pack.author">
         Author: {{ pack.author.name }}
       </v-card-text>
+
       <v-card-text>
         <SocialLinks :links="pack.links"></SocialLinks>
       </v-card-text>
+
       <v-card-actions>
         <v-btn @click="closeModal">Close </v-btn>
       </v-card-actions>
     </v-card>
-  </v-overlay>
+  </Modal>
 </template>
 
 <script>
+import Modal from "../../atoms/Modal";
 import SocialLinks from "../../atoms/SocialLinks";
+
 export default {
-  name: "Modal",
-  components: { SocialLinks },
+  name: "CardInfo",
+  components: { Modal, SocialLinks },
   props: {
     data: { type: Object, require: true },
     showModal: { type: Boolean, require: true, default: false },
@@ -33,9 +43,6 @@ export default {
     return {
       pack: {},
     };
-  },
-  created() {
-    document.addEventListener("keyup", this.hendlerKeyUp);
   },
   watch: {
     data: {
@@ -46,23 +53,15 @@ export default {
     },
   },
   methods: {
-    hendlerKeyUp(e) {
-      const { key } = e;
-      if (key !== "Escape") return;
-      this.closeModal();
-    },
     closeModal() {
       this.$emit("close");
     },
-  },
-  beforeDestroy() {
-    document.removeEventListener("keyup", this.hendlerKeyUp);
   },
 };
 </script>
 
 <style lang="scss">
-.v-modal {
+.card-info {
   .v-overlay__content {
     max-width: 600px;
     width: 90%;

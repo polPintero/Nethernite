@@ -13,21 +13,21 @@
       :total-visible="6"
       @input="changePage"
     ></v-pagination>
-    <Modal
+    <CardInfo
       :showModal="isShowModal"
       :data="dataForModal"
       @close="closeModal"
-    ></Modal>
+    ></CardInfo>
   </v-main>
 </template>
 
 <script>
-import Modal from "../../moleculs/Modal";
+import CardInfo from "../../moleculs/CardInfo";
 import columns from "./columns";
 
 export default {
   name: "Vbody",
-  components: { Modal },
+  components: { CardInfo },
   data() {
     return {
       columns,
