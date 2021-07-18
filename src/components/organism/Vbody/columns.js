@@ -3,10 +3,21 @@ const columns = [
     text: "Name",
     align: "start",
     filterable: false,
+    sortable: false,
     value: "package.name",
   },
-  { text: "description", value: "package.description" },
-  { text: "version", value: "package.version" },
+  {
+    text: "Description",
+    value: "package.description",
+    filterable: false,
+    sortable: false,
+  },
+  {
+    text: "Version",
+    value: "package.version",
+    filterable: false,
+    sortable: false,
+  },
 ];
 
 export default columns;
