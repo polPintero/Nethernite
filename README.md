@@ -1,3 +1,8 @@
+# ATTENTION
+
+[jsdelivery API doesn't have search endpoint.](https://github.com/jsdelivr/data.jsdelivr.com#search-npm-packages)
+So, i used another [API](https://api-docs.npms.io/)
+
 # nethernite
 
 ## Project setup
