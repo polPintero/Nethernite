@@ -37,13 +37,18 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    SEND_RESPONSE_SEARCH: async ({ state, dispatch }, { searchStr }) => {
+    SEND_RESPONSE_SEARCH: async (
+      { state, dispatch, commit },
+      { searchStr }
+    ) => {
       const search = searchStr === undefined ? state.searchString : searchStr;
       if (search !== state.searchString) {
         dispatch("CLEAR_DATA");
       }
       const from = (state.page - 1) * state.responseSize;
+      commit("SET_LOADING", true);
       const response = await api.getSearch(search, from);
+      commit("SET_LOADING", false);
       return response;
     },
     GET_DATA_SEARCH: async ({ state, commit, dispatch }) => {

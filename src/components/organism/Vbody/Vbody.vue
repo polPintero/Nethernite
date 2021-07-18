@@ -5,6 +5,7 @@
       :items="tableData"
       hide-default-footer
       @click:row="showModal"
+      :loading="isLoading"
     ></v-data-table>
     <v-pagination
       v-if="pageCount"
